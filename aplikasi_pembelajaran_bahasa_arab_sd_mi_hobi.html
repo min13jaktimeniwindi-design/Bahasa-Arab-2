@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Hiwayah - Hobiku Yang Bermanfaat | Bahasa Arab SD/MI Kelas II</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0fdf4;
+        }
+        .font-arabic {
+            font-family: 'Noto Naskh Arabic', serif;
+            direction: rtl;
+        }
+        .font-kids {
+            font-family: 'Fredoka', cursive;
+        }
+        .bounce-gentle {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(-3%); }
+            50% { transform: translateY(0); }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+        .gradient-kbc {
+            background: linear-gradient(135deg, #059669 0%, #10b981 50%, #0d9488 100%);
+        }
+        .tab-active {
+            background-color: #10b981;
+            color: white;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+        }
+    </style>
+</head>
+<body class="h-full text-slate-800 flex flex-col min-h-screen selection:bg-emerald-200">
+
+<header class="bg-emerald-600 text-white shadow-lg sticky top-0 z-50 border-b-4 border-emerald-700">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+        <div class="flex items-center space-x-3 space-x-reverse">
+            <div class="w-12 h-12 bg-amber-400 text-emerald-900 rounded-2xl flex items-center justify-center text-2xl font-bold shadow-md">
+                <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <div>
+                <h1 class="font-kids text-xl md:text-2xl font-bold tracking-wide flex items-center gap-2">
+                    <span>Al-Hiwayah</span>
+                    <span class="bg-amber-400 text-emerald-950 text-xs px-2.5 py-0.5 rounded-full uppercase font-sans">KBC Kemenag</span>
+                </h1>
+                <p class="text-xs text-emerald-100">Bahasa Arab SD/MI Kelas II - Kurikulum Merdeka & Deep Learning</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2 flex-wrap">
+            <button onclick="playBismillahDoa()" class="bg-emerald-700 hover:bg-emerald-800 text-amber-300 text-xs md:text-sm font-semibold px-3 py-1.5 rounded-xl border border-emerald-500 flex items-center gap-2 transition active:scale-95 shadow-sm">
+                <i class="fa-solid fa-hands-praying text-amber-400"></i>
+                <span>Doa Belajar</span>
+            </button>
+            <button onclick="toggleAudioBg()" id="bgAudioBtn" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs md:text-sm font-semibold px-3 py-1.5 rounded-xl border border-emerald-500 flex items-center gap-1.5 transition">
+                <i class="fa-solid fa-music"></i>
+                <span id="bgAudioStatus">Musik: OFF</span>
+            </button>
+            <div class="bg-emerald-800 px-3 py-1 rounded-xl text-xs font-medium text-emerald-200 border border-emerald-600 flex items-center gap-2">
+                <span class="text-amber-300"><i class="fa-solid fa-star"></i> Skor: <span id="userScore">0</span></span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- KBC 3 Pillars Bar -->
+    <div class="bg-emerald-800/80 px-4 py-1.5 text-xs text-emerald-100 border-t border-emerald-500/30">
+        <div class="max-w-7xl mx-auto flex justify-around items-center text-center font-medium">
+            <span class="flex items-center gap-1"><i class="fa-solid fa-heart text-rose-400"></i> 1. Cinta Allah & Rasul</span>
+            <span class="flex items-center gap-1"><i class="fa-solid fa-book-open text-amber-300"></i> 2. Cinta Ilmu</span>
+            <span class="flex items-center gap-1"><i class="fa-solid fa-users text-sky-300"></i> 3. Cinta Diri & Sesama</span>
+        </div>
+    </div>
+</header>
+
+<nav class="max-w-7xl mx-auto px-4 mt-4 w-full">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-2 bg-emerald-100 p-2 rounded-2xl border border-emerald-200 shadow-inner">
+        <button onclick="switchTab('mufradat')" id="tab-mufradat" class="nav-tab tab-active py-2.5 px-3 rounded-xl font-kids text-sm md:text-base flex items-center justify-center gap-2 transition-all">
+            <i class="fa-solid fa-icons"></i>
+            <span>1. Kios Hobi</span>
+        </button>
+        <button onclick="switchTab('percakapan')" id="tab-percakapan" class="nav-tab text-emerald-800 hover:bg-emerald-200 py-2.5 px-3 rounded-xl font-kids text-sm md:text-base flex items-center justify-center gap-2 transition-all">
+            <i class="fa-solid fa-comments"></i>
+            <span>2. Percakapan</span>
+        </button>
+        <button onclick="switchTab('bermain')" id="tab-bermain" class="nav-tab text-emerald-800 hover:bg-emerald-200 py-2.5 px-3 rounded-xl font-kids text-sm md:text-base flex items-center justify-center gap-2 transition-all">
+            <i class="fa-solid fa-gamepad"></i>
+            <span>3. Latihan & Game</span>
+        </button>
+        <button onclick="switchTab('refleksi')" id="tab-refleksi" class="nav-tab text-emerald-800 hover:bg-emerald-200 py-2.5 px-3 rounded-xl font-kids text-sm md:text-base flex items-center justify-center gap-2 transition-all">
+            <i class="fa-solid fa-seedling"></i>
+            <span>4. Refleksi KBC</span>
+        </button>
+        <button onclick="switchTab('asesmen')" id="tab-asesmen" class="nav-tab text-emerald-800 hover:bg-emerald-200 py-2.5 px-3 rounded-xl font-kids text-sm md:text-base flex items-center justify-center gap-2 col-span-2 md:col-span-1 transition-all">
+            <i class="fa-solid fa-award"></i>
+            <span>5. Kuis & Proyek</span>
+        </button>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT CONTAINER -->
+<main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+
+    <section id="panel-mufradat" class="tab-panel space-y-6">
+        
+        <!-- Deep Learning Header Card -->
+        <div class="glass-card rounded-3xl p-6 border-l-8 border-emerald-500 shadow-sm relative overflow-hidden">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div>
+                    <span class="bg-emerald-100 text-emerald-800 font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Pendekatan Deep Learning</span>
+                    <h2 class="font-kids text-2xl md:text-3xl text-emerald-900 mt-1">Mengenal Kosakata Hobi (المَفْرَدَاتُ)</h2>
+                    <p class="text-slate-600 text-sm mt-1">Mari **Mengamati**, **Mendengar**, dan **Menirukan** pelafalan Bahasa Arab tentang Hobi dengan fasih.</p>
+                </div>
+                <div class="flex items-center gap-2 bg-emerald-50 p-2 rounded-2xl border border-emerald-200">
+                    <span class="text-xs font-semibold text-emerald-700 px-2">Langkah Belajar:</span>
+                    <span class="bg-emerald-500 text-white text-xs px-2.5 py-1 rounded-lg">1. Amatil</span>
+                    <span class="bg-amber-400 text-emerald-950 text-xs px-2.5 py-1 rounded-lg">2. Dengar</span>
+                    <span class="bg-sky-500 text-white text-xs px-2.5 py-1 rounded-lg">3. Tiru</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vocabulary Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" id="vocabGrid">
+            <!-- Dynamic JavaScript Vocab Cards Insertion -->
+        </div>
+
+        <!-- Deep Learning Mindmap / Process Step Viewer Modal Button -->
+        <div class="bg-gradient-to-r from-teal-500 to-emerald-600 rounded-3xl p-6 text-white shadow-md flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center text-2xl">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <div>
+                    <h3 class="font-kids text-xl font-bold">Alur Berpikir Mendalam (Deep Learning)</h3>
+                    <p class="text-emerald-100 text-sm">Bagaimana kita memahami kata hobi hingga bermakna bagi diri kita?</p>
+                </div>
+            </div>
+            <button onclick="openDeepLearningModal()" class="bg-amber-400 hover:bg-amber-300 text-emerald-950 font-bold px-5 py-3 rounded-2xl shadow-md transition active:scale-95 flex items-center gap-2">
+                <i class="fa-solid fa-route"></i>
+                <span>Lihat Tangga Pemahaman</span>
+            </button>
+        </div>
+    </section>
+
+    <section id="panel-percakapan" class="tab-panel hidden space-y-6">
+        <div class="glass-card rounded-3xl p-6 border-l-8 border-sky-500 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                <div>
+                    <span class="bg-sky-100 text-sky-800 font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Ungkapan & Dialog (الحِوَارُ)</span>
+                    <h2 class="font-kids text-2xl md:text-3xl text-sky-900 mt-1">Bertanya & Menjawab Hobi</h2>
+                    <p class="text-slate-600 text-sm">Perhatikan perbedaan ungkapan untuk Laki-laki (**مَا هِوَايَتُكَ؟**) dan Perempuan (**مَا هِوَايَتُكِ؟**).</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-200 text-sky-900 px-4 py-2 rounded-2xl text-xs font-semibold">
+                    <i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Tip: Klik tombol audio untuk mendengarkan dialog!
+                </div>
+            </div>
+        </div>
+
+        <!-- Dialogue Character Interactive Stage -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Dialogue Card 1: Male Prompt -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 space-y-4 hover:shadow-lg transition">
+                <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+                    <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-xl font-bold">
+                        👦
+                    </div>
+                    <div>
+                        <h3 class="font-kids text-lg text-slate-800">Ahmad bertanya kepada Ali (Laki-laki)</h3>
+                        <p class="text-xs text-slate-500">Gunakan suffix -ka (كَ)</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="bg-sky-50 p-4 rounded-2xl border border-sky-100 flex items-start justify-between gap-3">
+                        <div>
+                            <p class="font-arabic text-2xl text-slate-800 font-bold">مَا هِوَايَتُكَ يَا عَلِيُّ؟</p>
+                            <p class="text-xs text-slate-600 mt-1"><em>Mā hiwāyatuka yā ‘Aliyyu?</em></p>
+                            <p class="text-xs font-semibold text-sky-700 mt-1">"Apa hobimu wahai Ali?"</p>
+                        </div>
+                        <button onclick="speakArabic('مَا هِوَايَتُكَ يَا عَلِيُّ؟')" class="w-10 h-10 bg-sky-500 hover:bg-sky-600 text-white rounded-xl flex items-center justify-center transition">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+
+                    <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex items-start justify-between gap-3">
+                        <div>
+                            <p class="font-arabic text-2xl text-slate-800 font-bold">هِوَايَتِي كُرَةُ القَدَمِ</p>
+                            <p class="text-xs text-slate-600 mt-1"><em>Hiwāyatī kuratul qadami.</em></p>
+                            <p class="text-xs font-semibold text-emerald-700 mt-1">"Hobiku adalah Bermain Sepak Bola."</p>
+                        </div>
+                        <button onclick="speakArabic('هِوَايَتِي كُرَةُ القَدَمِ')" class="w-10 h-10 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl flex items-center justify-center transition">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dialogue Card 2: Female Prompt -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 space-y-4 hover:shadow-lg transition">
+                <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
+                    <div class="w-12 h-12 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-xl font-bold">
+                        👧
+                    </div>
+                    <div>
+                        <h3 class="font-kids text-lg text-slate-800">Fatimah bertanya kepada Aisyah (Perempuan)</h3>
+                        <p class="text-xs text-slate-500">Gunakan suffix -ki (كِ)</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="bg-pink-50 p-4 rounded-2xl border border-pink-100 flex items-start justify-between gap-3">
+                        <div>
+                            <p class="font-arabic text-2xl text-slate-800 font-bold">مَا هِوَايَتُكِ يَا عَائِشَةُ؟</p>
+                            <p class="text-xs text-slate-600 mt-1"><em>Mā hiwāyatuki yā ‘Ā’isyatu?</em></p>
+                            <p class="text-xs font-semibold text-pink-700 mt-1">"Apa hobimu wahai Aisyah?"</p>
+                        </div>
+                        <button onclick="speakArabic('مَا هِوَايَتُكِ يَا عَائِشَةُ؟')" class="w-10 h-10 bg-pink-500 hover:bg-pink-600 text-white rounded-xl flex items-center justify-center transition">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+
+                    <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100 flex items-start justify-between gap-3">
+                        <div>
+                            <p class="font-arabic text-2xl text-slate-800 font-bold">هِوَايَتِي الرَّسْمُ</p>
+                            <p class="text-xs text-slate-600 mt-1"><em>Hiwāyatī ar-rasmu.</em></p>
+                            <p class="text-xs font-semibold text-purple-700 mt-1">"Hobiku adalah Menggambar."</p>
+                        </div>
+                        <button onclick="speakArabic('هِوَايَتِي الرَّسْمُ')" class="w-10 h-10 bg-purple-500 hover:bg-purple-600 text-white rounded-xl flex items-center justify-center transition">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Practice Roleplay Studio -->
+        <div class="bg-amber-50 rounded-3xl p-6 border border-amber-200 shadow-sm">
+            <h3 class="font-kids text-xl text-amber-900 flex items-center gap-2">
+                <i class="fa-solid fa-masks-theater text-amber-600"></i> Studio Bermain Peran (Roleplay)
+            </h3>
+            <p class="text-xs text-slate-600 mt-1">Pilih karaktermu dan berlatihlah menjawab pertanyaan hobi berikut!</p>
+            
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button onclick="selectRoleplay('reading')" class="p-4 bg-white rounded-2xl border border-amber-200 text-center hover:border-amber-400 hover:shadow-md transition">
+                    <span class="text-3xl">📚</span>
+                    <p class="font-arabic text-lg font-bold mt-2">هِوَايَتِي القِرَاءَةُ</p>
+                    <span class="text-xs text-slate-500">Hobiku Membaca</span>
+                </button>
+                <button onclick="selectRoleplay('swimming')" class="p-4 bg-white rounded-2xl border border-amber-200 text-center hover:border-amber-400 hover:shadow-md transition">
+                    <span class="text-3xl">🏊‍♂️</span>
+                    <p class="font-arabic text-lg font-bold mt-2">هِوَايَتِي السِّبَاحَةُ</p>
+                    <span class="text-xs text-slate-500">Hobiku Berenang</span>
+                </button>
+                <button onclick="selectRoleplay('cycling')" class="p-4 bg-white rounded-2xl border border-amber-200 text-center hover:border-amber-400 hover:shadow-md transition">
+                    <span class="text-3xl">🚴‍♂️</span>
+                    <p class="font-arabic text-lg font-bold mt-2">هِوَايَتِي رُكُوبُ الدَّرَّاجَةِ</p>
+                    <span class="text-xs text-slate-500">Hobiku Bersepeda</span>
+                </button>
+            </div>
+            <div id="roleplayOutput" class="mt-4 p-4 bg-white rounded-2xl border border-emerald-300 hidden text-center">
+                <p id="roleplayArabic" class="font-arabic text-2xl font-bold text-emerald-800"></p>
+                <p id="roleplayIndo" class="text-sm text-slate-600 mt-1 font-medium"></p>
+                <button onclick="playCurrentRoleplayAudio()" class="mt-2 bg-emerald-500 text-white px-4 py-1.5 rounded-xl text-xs font-semibold hover:bg-emerald-600">
+                    <i class="fa-solid fa-volume-high mr-1"></i> Dengarkan Suara
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="panel-bermain" class="tab-panel hidden space-y-6">
+        <div class="glass-card rounded-3xl p-6 border-l-8 border-purple-500 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                <div>
+                    <span class="bg-purple-100 text-purple-800 font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Game-Based Learning</span>
+                    <h2 class="font-kids text-2xl md:text-3xl text-purple-900 mt-1">Zona Bermain & Latih Kemampuan</h2>
+                    <p class="text-slate-600 text-sm">Pilih permainan edukatif di bawah ini untuk menguji pemahamanmu!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mini Game Switcher Buttons -->
+        <div class="flex flex-wrap gap-2 justify-center">
+            <button onclick="switchMiniGame('match')" id="btn-game-match" class="px-4 py-2 rounded-2xl font-kids text-sm bg-purple-600 text-white shadow-md">
+                1. Jodohkan Gambar & Kata
+            </button>
+            <button onclick="switchMiniGame('scramble')" id="btn-game-scramble" class="px-4 py-2 rounded-2xl font-kids text-sm bg-purple-100 text-purple-800 hover:bg-purple-200">
+                2. Menyusun Kalimat
+            </button>
+            <button onclick="switchMiniGame('fill')" id="btn-game-fill" class="px-4 py-2 rounded-2xl font-kids text-sm bg-purple-100 text-purple-800 hover:bg-purple-200">
+                3. Lengkapi Dialog
+            </button>
+        </div>
+
+        <!-- GAME AREA 1: Match Game -->
+        <div id="game-match-container" class="bg-white rounded-3xl p-6 shadow-md border border-purple-100">
+            <div class="text-center mb-6">
+                <h3 class="font-kids text-xl text-purple-900">Jodohkan Gambar Dengan Bahasa Arabnya!</h3>
+                <p class="text-xs text-slate-500">Klik satu gambar di kiri, lalu klik kata Bahasa Arab yang sesuai di kanan.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <!-- Images Column -->
+                <div class="space-y-3" id="matchImagesCol">
+                    <!-- Dynamic Match Images -->
+                </div>
+                <!-- Arabic Words Column -->
+                <div class="space-y-3" id="matchWordsCol">
+                    <!-- Dynamic Match Words -->
+                </div>
+            </div>
+            <div id="matchFeedback" class="mt-4 text-center font-bold text-sm hidden"></div>
+        </div>
+
+        <!-- GAME AREA 2: Sentence Scramble -->
+        <div id="game-scramble-container" class="bg-white rounded-3xl p-6 shadow-md border border-purple-100 hidden">
+            <div class="text-center mb-6">
+                <h3 class="font-kids text-xl text-purple-900">Susun Kata Menjadi Kalimat Yang Benar!</h3>
+                <p class="text-xs text-slate-500">Klik kata-kata acak di bawah ini untuk menyusun kalimat yang tepat.</p>
+            </div>
+
+            <div class="max-w-xl mx-auto space-y-4">
+                <div class="bg-slate-50 p-4 rounded-2xl border-2 border-dashed border-purple-300 min-h-[70px] flex items-center justify-center flex-wrap gap-2 font-arabic text-2xl text-purple-900" id="sentenceDropArea">
+                    <span class="text-xs text-slate-400 font-sans">Susun kata di sini...</span>
+                </div>
+
+                <div class="flex justify-center flex-wrap gap-3" id="sentenceWordBank">
+                    <!-- Word blocks dynamically injected -->
+                </div>
+
+                <div class="flex justify-center gap-3 pt-2">
+                    <button onclick="checkSentenceScramble()" class="bg-emerald-500 hover:bg-emerald-600 text-white font-kids px-6 py-2 rounded-xl text-sm shadow">
+                        <i class="fa-solid fa-check mr-1"></i> Periksa Jawaban
+                    </button>
+                    <button onclick="resetSentenceScramble()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-kids px-4 py-2 rounded-xl text-sm">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Ulangi
+                    </button>
+                </div>
+                <div id="scrambleFeedback" class="text-center font-bold text-sm"></div>
+            </div>
+        </div>
+
+        <!-- GAME AREA 3: Dialogue Fill -->
+        <div id="game-fill-container" class="bg-white rounded-3xl p-6 shadow-md border border-purple-100 hidden">
+            <div class="text-center mb-6">
+                <h3 class="font-kids text-xl text-purple-900">Isi Rumpangan Dialog Di Bawah Ini!</h3>
+                <p class="text-xs text-slate-500">Pilih kata yang tepat untuk melengkapi dialog berikut.</p>
+            </div>
+
+            <div class="max-w-lg mx-auto bg-purple-50 p-6 rounded-3xl border border-purple-200 space-y-4">
+                <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                    <p class="text-xs text-slate-500 mb-1">Ahmad (Laki-laki):</p>
+                    <p class="font-arabic text-xl font-bold text-slate-800">مَا هِوَايَتُـ(...) يَا بَلاَلُ؟</p>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="checkFillBlank('ka')" class="p-3 bg-white hover:bg-purple-100 rounded-2xl border border-purple-300 font-arabic text-2xl font-bold text-purple-800">
+                        كِ (ki)
+                    </button>
+                    <button onclick="checkFillBlank('ki')" class="p-3 bg-white hover:bg-purple-100 rounded-2xl border border-purple-300 font-arabic text-2xl font-bold text-purple-800">
+                        كَ (ka)
+                    </button>
+                </div>
+                <div id="fillFeedback" class="text-center font-bold text-sm"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="panel-refleksi" class="tab-panel hidden space-y-6">
+        
+        <!-- KBC Main Card -->
+        <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-sky-600 text-white rounded-3xl p-6 shadow-lg relative overflow-hidden">
+            <div class="relative z-10 space-y-2">
+                <span class="bg-amber-400 text-emerald-950 font-bold text-xs px-3 py-1 rounded-full uppercase">Integrasi KBC Kemenag RI</span>
+                <h2 class="font-kids text-2xl md:text-3xl font-bold">Refleksi Hobi Berbasis Cinta</h2>
+                <p class="text-emerald-100 text-sm max-w-2xl">
+                    Hobi bukan sekadar kesenangan, tetapi karunia Allah SWT untuk kesehatan tubuh, pikiran, dan sarana berbuat kebaikan bagi sesama.
+                </p>
+            </div>
+        </div>
+
+        <!-- 3 Pillars Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <!-- Pillar 1: Cinta Allah & Rasul -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border-t-8 border-rose-500 space-y-3">
+                <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <h3 class="font-kids text-lg text-slate-800">1. Cinta Allah & Rasul</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Syukuri nikmat kesehatan dan waktu luang yang diberikan Allah SWT. Awali setiap hobi dengan membaca **Bismillah**.
+                </p>
+                <div class="bg-rose-50 p-3 rounded-2xl border border-rose-100 text-xs text-rose-900 italic font-medium">
+                    "Dua nikmat yang sering dilupakan manusia: kesehatan dan waktu luang." (HR. Bukhari)
+                </div>
+            </div>
+
+            <!-- Pillar 2: Cinta Ilmu -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border-t-8 border-amber-500 space-y-3">
+                <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <h3 class="font-kids text-lg text-slate-800">2. Cinta Ilmu</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Dengan hobi membaca, kita menambah ilmu pengetahuan. Dengan berolahraga, tubuh kita kuat untuk menuntut ilmu.
+                </p>
+                <div class="bg-amber-50 p-3 rounded-2xl border border-amber-100 text-xs text-amber-900 font-medium">
+                    ✨ Mari melatih kosakata Bahasa Arab hobi agar wawasanmu semakin luas!
+                </div>
+            </div>
+
+            <!-- Pillar 3: Cinta Diri & Sesama -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border-t-8 border-sky-500 space-y-3">
+                <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-xl font-bold">
+                    <i class="fa-solid fa-people-holding-hands"></i>
+                </div>
+                <h3 class="font-kids text-lg text-slate-800">3. Cinta Diri & Sesama</h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Hargai hobi teman yang berbeda! Setiap orang memiliki keunikan. Puji hobi temanmu dengan ucapan: **Māsyā-Allāh!**
+                </p>
+                <div class="bg-sky-50 p-3 rounded-2xl border border-sky-100 text-xs text-sky-900 font-medium">
+                    🤝 Berbagi manfaat dari hobi: mengajarkan teman, bermain bersama dengan rukun.
+                </div>
+            </div>
+        </div>
+
+        <!-- Deep Learning Reflection Form (3 Gold Questions) -->
+        <div class="bg-emerald-50 rounded-3xl p-6 border-2 border-emerald-300 shadow-sm space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-emerald-600 text-white rounded-xl flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-pen-ruler"></i>
+                </div>
+                <div>
+                    <h3 class="font-kids text-xl text-emerald-950">Refleksi Diri Peserta Didik (3 Pertanyaan Emas)</h3>
+                    <p class="text-xs text-slate-600">Mari merenungkan hobimu secara mendalam!</p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">1. Apa hobi favoritmu yang paling kamu sukai?</label>
+                    <select id="refleksiHobi" class="w-full p-3 rounded-xl border border-emerald-200 text-sm focus:ring-2 focus:ring-emerald-500">
+                        <option value="القِرَاءَةُ">القِرَاءَةُ (Membaca)</option>
+                        <option value="السِّبَاحَةُ">السِّبَاحَةُ (Berenang)</option>
+                        <option value="الرَّسْمُ">الرَّسْمُ (Menggambar)</option>
+                        <option value="كُرَةُ القَدَمِ">كُرَةُ القَدَمِ (Bermain Bola)</option>
+                        <option value="رُكُوبُ الدَّرَّاجَةِ">رُكُوبُ الدَّرَّاجَةِ (Bersepeda)</option>
+                        <option value="العَنَايَةُ بِالْحَدِيقَةِ">العَنَايَةُ بِالْحَدِيقَةِ (Berkebun)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">2. Mengapa kamu menyukai hobi tersebut?</label>
+                    <input type="text" id="refleksiAlasan" placeholder="Contoh: Karena membuat badan sehat / menambah ilmu / menyenangkan..." class="w-full p-3 rounded-xl border border-emerald-200 text-sm focus:ring-2 focus:ring-emerald-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">3. Manfaat apa yang kamu dapatkan untuk dirimu dan orang lain?</label>
+                    <input type="text" id="refleksiManfaat" placeholder="Contoh: Menjadi lebih pintar / sehat / bisa membantu orang tua..." class="w-full p-3 rounded-xl border border-emerald-200 text-sm focus:ring-2 focus:ring-emerald-500">
+                </div>
+
+                <button onclick="saveRefleksi()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-kids py-3 rounded-xl shadow-md text-sm transition">
+                    <i class="fa-solid fa-floppy-disk mr-2"></i> Simpan Refleksi & Dapatkan Bintang KBC
+                </button>
+            </div>
+
+            <div id="refleksiResultCard" class="mt-4 p-4 bg-white rounded-2xl border border-emerald-300 hidden text-sm">
+                <h4 class="font-kids text-emerald-800 text-base font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-circle-check text-emerald-500"></i> Catatan Refleksi Keaslian Diri
+                </h4>
+                <p id="refleksiSummary" class="text-slate-700 mt-2 leading-relaxed"></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="panel-asesmen" class="tab-panel hidden space-y-6">
+        
+        <div class="glass-card rounded-3xl p-6 border-l-8 border-amber-500 shadow-sm">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                <div>
+                    <span class="bg-amber-100 text-amber-800 font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Asesmen & Karya</span>
+                    <h2 class="font-kids text-2xl md:text-3xl text-amber-900 mt-1">Kuis Formatif & Proyek Mini</h2>
+                    <p class="text-slate-600 text-sm">Uji kemampuanmu lewat kuis interaktif atau buat Kartu Bintang Hobiku!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mode Selector: Quiz vs Mini Project -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Quiz Card Launcher -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 hover:shadow-lg transition space-y-4 flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-2xl mb-3">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <h3 class="font-kids text-xl text-slate-800">Kuis Formatif Bertingkat</h3>
+                    <p class="text-xs text-slate-500 mt-1">5 Soal pilihan ganda interaktif dengan umpan balik langsung dan bintang prestasi.</p>
+                </div>
+                <button onclick="startQuiz()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-kids py-3 rounded-2xl shadow transition">
+                    <i class="fa-solid fa-play mr-2"></i> Mulai Kuis Sekarang
+                </button>
+            </div>
+
+            <!-- Mini Project Launcher -->
+            <div class="bg-white rounded-3xl p-6 shadow-md border border-slate-100 hover:shadow-lg transition space-y-4 flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl mb-3">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+                    <h3 class="font-kids text-xl text-slate-800">Proyek Mini: Generator "Kartu Bintang Hobiku"</h3>
+                    <p class="text-xs text-slate-500 mt-1">Buat kartu identitas hobi Bahasa Arabmu sendiri yang indah dan siap dipajang / dicetak.</p>
+                </div>
+                <button onclick="openMiniProject()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-kids py-3 rounded-2xl shadow transition">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Buat Kartu Hobiku
+                </button>
+            </div>
+        </div>
+
+        <!-- QUIZ DISPLAY CONTAINER -->
+        <div id="quizContainer" class="bg-white rounded-3xl p-6 shadow-md border border-amber-200 hidden space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <span class="font-kids text-amber-800 font-bold" id="quizProgressText">Soal 1 / 5</span>
+                <span class="text-xs bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold" id="quizTimerText">⏱️ Waktu Bebas</span>
+            </div>
+
+            <div id="quizContent" class="space-y-4">
+                <!-- Dynamic quiz question -->
+            </div>
+        </div>
+
+        <!-- MINI PROJECT CREATOR CONTAINER -->
+        <div id="miniProjectContainer" class="bg-white rounded-3xl p-6 shadow-md border border-emerald-200 hidden space-y-4">
+            <h3 class="font-kids text-xl text-emerald-900 border-b pb-2">Desain Kartu Bintang Hobiku (مَشْرُوعِي)</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Form input -->
+                <div class="space-y-3 text-xs">
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Nama Siswa / Peserta Didik:</label>
+                        <input type="text" id="cardName" placeholder="Tulis namamu..." class="w-full p-2.5 rounded-xl border border-slate-300">
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Kelas / MI:</label>
+                        <input type="text" id="cardClass" value="Kelas II MI" class="w-full p-2.5 rounded-xl border border-slate-300">
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Pilih Hobi (Bahasa Arab):</label>
+                        <select id="cardHobby" onchange="updateCardPreview()" class="w-full p-2.5 rounded-xl border border-slate-300">
+                            <option value="القِرَاءَةُ">القِرَاءَةُ (Membaca)</option>
+                            <option value="السِّبَاحَةُ">السِّبَاحَةُ (Berenang)</option>
+                            <option value="الرَّسْمُ">الرَّسْمُ (Menggambar)</option>
+                            <option value="كُرَةُ القَدَمِ">كُرَةُ القَدَمِ (Bermain Bola)</option>
+                            <option value="رُكُوبُ الدَّرَّاجَةِ">رُكُوبُ الدَّرَّاجَةِ (Bersepeda)</option>
+                            <option value="العَنَايَةُ بِالْحَدِيقَةِ">العَنَايَةُ بِالْحَدِيقَةِ (Berkebun)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="font-bold text-slate-700 block mb-1">Pesan Cinta KBC / Doa:</label>
+                        <input type="text" id="cardPrayer" value="Alhamdulillah atas nikmat hobi dari Allah SWT" class="w-full p-2.5 rounded-xl border border-slate-300">
+                    </div>
+                    <button onclick="updateCardPreview()" class="w-full bg-emerald-600 text-white py-2 rounded-xl font-bold">
+                        Perbarui Kartu
+                    </button>
+                </div>
+
+                <!-- Card Live Preview Area -->
+                <div class="flex justify-center items-center">
+                    <div id="digitalCardPreview" class="w-full max-w-sm gradient-kbc text-white p-6 rounded-3xl shadow-xl space-y-4 border-4 border-amber-300 text-center relative overflow-hidden">
+                        <div class="text-xs bg-amber-400 text-emerald-950 font-bold px-3 py-1 rounded-full inline-block uppercase">
+                            Kartu Bintang KBC MI
+                        </div>
+                        <div class="w-20 h-20 bg-white/20 rounded-full mx-auto flex items-center justify-center text-4xl border-2 border-white/50" id="cardEmojiIcon">
+                            📚
+                        </div>
+                        <div>
+                            <h4 class="font-kids text-xl font-bold" id="previewName">Nama Siswa</h4>
+                            <p class="text-xs text-emerald-100" id="previewClass">Kelas II MI</p>
+                        </div>
+                        <div class="bg-white/10 p-3 rounded-2xl backdrop-blur-sm border border-white/20">
+                            <span class="text-xs text-amber-200 font-sans block">Hobiku (هِوَايَتِي):</span>
+                            <p class="font-arabic text-3xl font-bold my-1" id="previewArabic">القِرَاءَةُ</p>
+                        </div>
+                        <p class="text-xs text-emerald-100 italic" id="previewPrayer">"Alhamdulillah atas nikmat hobi dari Allah SWT"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center pt-2">
+                <button onclick="printCard()" class="bg-amber-400 hover:bg-amber-300 text-emerald-950 font-bold px-6 py-2.5 rounded-2xl shadow">
+                    <i class="fa-solid fa-print mr-2"></i> Cetak / Simpan Kartu Ini
+                </button>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div id="deepLearningModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 space-y-4 shadow-2xl border-4 border-emerald-500 max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b pb-3">
+            <h3 class="font-kids text-xl text-emerald-900 flex items-center gap-2">
+                <i class="fa-solid fa-network-wired text-emerald-600"></i> Tangga Pemahaman Deep Learning
+            </h3>
+            <button onclick="closeDeepLearningModal()" class="w-8 h-8 bg-slate-100 text-slate-600 rounded-full hover:bg-slate-200">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="space-y-3 text-xs md:text-sm">
+            <div class="p-3 bg-emerald-50 rounded-2xl border border-emerald-200 flex gap-3 items-start">
+                <span class="w-7 h-7 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">1</span>
+                <div>
+                    <h4 class="font-bold text-emerald-900">Mengamati (Observe)</h4>
+                    <p class="text-slate-600">Siswa mengamati simbol visual hobi (membaca, berenang, melukis, dsb.) dan tulisan Bahasa Arabnya.</p>
+                </div>
+            </div>
+            <div class="p-3 bg-sky-50 rounded-2xl border border-sky-200 flex gap-3 items-start">
+                <span class="w-7 h-7 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">2</span>
+                <div>
+                    <h4 class="font-bold text-sky-900">Mendengar & Menirukan (Listen & Repeat)</h4>
+                    <p class="text-slate-600">Mendengarkan makhraj huruf Bahasa Arab yang tepat dan mengucapkan kata secara berulang.</p>
+                </div>
+            </div>
+            <div class="p-3 bg-amber-50 rounded-2xl border border-amber-200 flex gap-3 items-start">
+                <span class="w-7 h-7 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">3</span>
+                <div>
+                    <h4 class="font-bold text-amber-900">Memahami & Menanya (Understand & Inquire)</h4>
+                    <p class="text-slate-600">Membedakan pemakaian kata tanya *Mā hiwāyatuka?* (laki-laki) dan *Mā hiwāyatuki?* (perempuan).</p>
+                </div>
+            </div>
+            <div class="p-3 bg-purple-50 rounded-2xl border border-purple-200 flex gap-3 items-start">
+                <span class="w-7 h-7 bg-purple-600 text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">4</span>
+                <div>
+                    <h4 class="font-bold text-purple-900">Mencoba (Practice & Apply)</h4>
+                    <p class="text-slate-600">Menyusun kalimat, mencocokkan kata, dan berdialog sederhana bersama kawan.</p>
+                </div>
+            </div>
+            <div class="p-3 bg-rose-50 rounded-2xl border border-rose-200 flex gap-3 items-start">
+                <span class="w-7 h-7 bg-rose-600 text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0">5</span>
+                <div>
+                    <h4 class="font-bold text-rose-900">Refleksi KBC (Reflect & Internalize)</h4>
+                    <p class="text-slate-600">Menghubungkan hobi dengan rasa syukur kepada Allah SWT, menghargai hobi teman, dan berbuat baik.</p>
+                </div>
+            </div>
+        </div>
+
+        <button onclick="closeDeepLearningModal()" class="w-full bg-emerald-600 text-white py-2.5 rounded-xl font-kids text-sm">
+            Saya Paham, Mari Belajar!
+        </button>
+    </div>
+</div>
+
+<script>
+const vocabularies = [
+    {
+        id: 'reading',
+        arabic: 'القِرَاءَةُ',
+        latin: 'Al-Qirā’atu',
+        indo: 'Membaca',
+        emoji: '📚',
+        sentence: 'هِوَايَتِي القِرَاءَةُ',
+        sentenceIndo: 'Hobiku adalah Membaca',
+        bg: 'bg-emerald-50',
+        border: 'border-emerald-200'
+    },
+    {
+        id: 'swimming',
+        arabic: 'السِّبَاحَةُ',
+        latin: 'As-Sibāḥatu',
+        indo: 'Berenang',
+        emoji: '🏊‍♂️',
+        sentence: 'هِوَايَتِي السِّبَاحَةُ',
+        sentenceIndo: 'Hobiku adalah Berenang',
+        bg: 'bg-sky-50',
+        border: 'border-sky-200'
+    },
+    {
+        id: 'drawing',
+        arabic: 'الرَّسْمُ',
+        latin: 'Ar-Rasmu',
+        indo: 'Menggambar',
+        emoji: '🎨',
+        sentence: 'هِوَايَتِي الرَّسْمُ',
+        sentenceIndo: 'Hobiku adalah Menggambar',
+        bg: 'bg-purple-50',
+        border: 'border-purple-200'
+    },
+    {
+        id: 'football',
+        arabic: 'كُرَةُ القَدَمِ',
+        latin: 'Kuratu Al-Qadami',
+        indo: 'Sepak Bola',
+        emoji: '⚽',
+        sentence: 'هِوَايَتِي كُرَةُ القَدَمِ',
+        sentenceIndo: 'Hobiku adalah Sepak Bola',
+        bg: 'bg-amber-50',
+        border: 'border-amber-200'
+    },
+    {
+        id: 'cycling',
+        arabic: 'رُكُوبُ الدَّرَّاجَةِ',
+        latin: 'Rukūbu Ad-Darrājati',
+        indo: 'Bersepeda',
+        emoji: '🚴‍♂️',
+        sentence: 'هِوَايَتِي رُكُوبُ الدَّرَّاجَةِ',
+        sentenceIndo: 'Hobiku adalah Bersepeda',
+        bg: 'bg-lime-50',
+        border: 'border-lime-200'
+    },
+    {
+        id: 'gardening',
+        arabic: 'العَنَايَةُ بِالْحَدِيقَةِ',
+        latin: 'Al-‘Ināyatu bil-Ḥadīqati',
+        indo: 'Berkebun',
+        emoji: '🌱',
+        sentence: 'هِوَايَتِي العَنَايَةُ بِالْحَدِيقَةِ',
+        sentenceIndo: 'Hobiku adalah Berkebun',
+        bg: 'bg-teal-50',
+        border: 'border-teal-200'
+    },
+    {
+        id: 'running',
+        arabic: 'الجَرْيُ',
+        latin: 'Al-Jaryu',
+        indo: 'Berlari / Olahraga',
+        emoji: '🏃‍♂️',
+        sentence: 'هِوَايَتِي الجَرْيُ',
+        sentenceIndo: 'Hobiku adalah Berlari',
+        bg: 'bg-orange-50',
+        border: 'border-orange-200'
+    },
+    {
+        id: 'writing',
+        arabic: 'الكِتَابَةُ',
+        latin: 'Al-Kitābatu',
+        indo: 'Menulis',
+        emoji: '✍️',
+        sentence: 'هِوَايَتِي الكِتَابَةُ',
+        sentenceIndo: 'Hobiku adalah Menulis',
+        bg: 'bg-indigo-50',
+        border: 'border-indigo-200'
+    }
+];
+
+let userScore = 0;
+let isAudioBgPlaying = false;
+let currentRoleplayAudioText = '';
+
+function renderVocabGrid() {
+    const grid = document.getElementById('vocabGrid');
+    grid.innerHTML = vocabularies.map(v => `
+        <div class="${v.bg} ${v.border} border-2 rounded-3xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition hover:-translate-y-1">
+            <div class="text-center">
+                <span class="text-5xl block mb-2 bounce-gentle">${v.emoji}</span>
+                <p class="font-arabic text-3xl font-bold text-slate-800 my-1">${v.arabic}</p>
+                <p class="text-xs text-slate-500 font-medium"><em>${v.latin}</em></p>
+                <p class="text-sm font-bold text-emerald-800 mt-1">${v.indo}</p>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-slate-200/60 space-y-2">
+                <div class="bg-white p-2 rounded-xl text-center border border-slate-100">
+                    <p class="font-arabic text-sm text-slate-700 font-semibold">${v.sentence}</p>
+                    <p class="text-[11px] text-slate-500">${v.sentenceIndo}</p>
+                </div>
+                <button onclick="speakArabic('${v.arabic}')" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-kids text-xs py-2 rounded-xl flex items-center justify-center gap-1.5 shadow-sm transition active:scale-95">
+                    <i class="fa-solid fa-volume-high"></i>
+                    <span>Dengar Pelafalan</span>
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function speakArabic(text) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Stop prior speech
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ar-SA';
+        utterance.rate = 0.8; // Slow for kids learning
+        utterance.pitch = 1.1; // Gentle kid friendly tone
+        window.speechSynthesis.speak(utterance);
+    } else {
+        alert("Fitur suara tidak didukung di peramban ini.");
+    }
+}
+
+function playBismillahDoa() {
+    speakArabic("رَبِّ زِدْنِي عِلْمًا وَارْزُقْنِي فَهْمًا");
+    showNotification("🤲 Doa Belajar: 'Ya Allah, tambahkanlah aku ilmu dan berilah aku pemahaman yang baik.'");
+}
+
+function playSuccessChime() {
+    try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+        osc.frequency.exponentialRampToValueAtTime(659.25, ctx.currentTime + 0.15); // E5
+        osc.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.3); // G5
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.4);
+    } catch (e) {}
+}
+
+function addScore(points) {
+    userScore += points;
+    document.getElementById('userScore').innerText = userScore;
+    playSuccessChime();
+}
+
+function showNotification(msg) {
+    const banner = document.createElement('div');
+    banner.className = 'fixed bottom-5 right-5 bg-emerald-900 text-amber-300 font-kids px-5 py-3 rounded-2xl shadow-2xl z-50 text-sm border-2 border-amber-400 flex items-center gap-2 animate-bounce';
+    banner.innerHTML = `<i class="fa-solid fa-star text-amber-400"></i> ${msg}`;
+    document.body.appendChild(banner);
+    setTimeout(() => banner.remove(), 4000);
+}
+
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.add('hidden'));
+    document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('tab-active');
+        tab.classList.add('text-emerald-800', 'hover:bg-emerald-200');
+    });
+
+    document.getElementById(`panel-${tabId}`).classList.remove('hidden');
+    const activeBtn = document.getElementById(`tab-${tabId}`);
+    activeBtn.classList.add('tab-active');
+    activeBtn.classList.remove('text-emerald-800', 'hover:bg-emerald-200');
+}
+
+function selectRoleplay(type) {
+    const item = vocabularies.find(v => v.id === type);
+    if (!item) return;
+    const output = document.getElementById('roleplayOutput');
+    output.classList.remove('hidden');
+    document.getElementById('roleplayArabic').innerText = item.sentence;
+    document.getElementById('roleplayIndo').innerText = `Artinya: "${item.sentenceIndo}"`;
+    currentRoleplayAudioText = item.sentence;
+    speakArabic(item.sentence);
+}
+
+function playCurrentRoleplayAudio() {
+    if (currentRoleplayAudioText) speakArabic(currentRoleplayAudioText);
+}
+
+let selectedMatchImg = null;
+let selectedMatchWord = null;
+
+function initMatchGame() {
+    const colImg = document.getElementById('matchImagesCol');
+    const colWord = document.getElementById('matchWordsCol');
+    
+    // Pick 4 random vocabularies
+    const items = [...vocabularies].sort(() => 0.5 - Math.random()).slice(0, 4);
+    const shuffledWords = [...items].sort(() => 0.5 - Math.random());
+
+    colImg.innerHTML = items.map(item => `
+        <button onclick="selectMatchItem('img', '${item.id}', this)" class="w-full p-3 bg-slate-50 hover:bg-purple-50 border-2 border-slate-200 rounded-2xl flex items-center gap-3 transition">
+            <span class="text-3xl">${item.emoji}</span>
+            <span class="font-bold text-slate-700 text-sm">${item.indo}</span>
+        </button>
+    `).join('');
+
+    colWord.innerHTML = shuffledWords.map(item => `
+        <button onclick="selectMatchItem('word', '${item.id}', this)" class="w-full p-3 bg-slate-50 hover:bg-purple-50 border-2 border-slate-200 rounded-2xl font-arabic text-2xl font-bold text-slate-800 text-right transition">
+            ${item.arabic}
+        </button>
+    `).join('');
+}
+
+function selectMatchItem(type, id, btn) {
+    if (type === 'img') {
+        document.querySelectorAll('#matchImagesCol button').forEach(b => b.classList.remove('border-purple-500', 'bg-purple-100'));
+        btn.classList.add('border-purple-500', 'bg-purple-100');
+        selectedMatchImg = id;
+    } else {
+        document.querySelectorAll('#matchWordsCol button').forEach(b => b.classList.remove('border-purple-500', 'bg-purple-100'));
+        btn.classList.add('border-purple-500', 'bg-purple-100');
+        selectedMatchWord = id;
+    }
+
+    if (selectedMatchImg && selectedMatchWord) {
+        const feedback = document.getElementById('matchFeedback');
+        feedback.classList.remove('hidden');
+        if (selectedMatchImg === selectedMatchWord) {
+            feedback.innerHTML = '<span class="text-emerald-600">🎉 Mumtaz! Pasangan Benar! +10 Poin</span>';
+            addScore(10);
+            confetti({ particleCount: 30, spread: 60, origin: { y: 0.7 } });
+        } else {
+            feedback.innerHTML = '<span class="text-rose-500">❌ Coba Lagi Ya! Perhatikan artinya dengan teliti.</span>';
+        }
+        selectedMatchImg = null;
+        selectedMatchWord = null;
+    }
+}
+
+/* Sentence Scramble Game Logic */
+const scrambleSentences = [
+    { target: ['هِوَايَتِي', 'السِّبَاحَةُ', 'فِي', 'المَسْبَحِ'], hint: 'Hobiku berenang di kolam renang' },
+    { target: ['هِوَايَتِي', 'كُرَةُ', 'القَدَمِ'], hint: 'Hobiku sepak bola' }
+];
+
+let currentScrambleIndex = 0;
+let userScrambleWords = [];
+
+function initSentenceScramble() {
+    const current = scrambleSentences[currentScrambleIndex];
+    const bank = document.getElementById('sentenceWordBank');
+    document.getElementById('sentenceDropArea').innerHTML = '<span class="text-xs text-slate-400 font-sans">Susun kata di sini...</span>';
+    userScrambleWords = [];
+    document.getElementById('scrambleFeedback').innerText = '';
+
+    const shuffled = [...current.target].sort(() => 0.5 - Math.random());
+    bank.innerHTML = shuffled.map(word => `
+        <button onclick="addScrambleWord('${word}', this)" class="px-4 py-2 bg-purple-100 hover:bg-purple-200 text-purple-900 border border-purple-300 rounded-xl font-arabic text-xl font-bold transition">
+            ${word}
+        </button>
+    `).join('');
+}
+
+function addScrambleWord(word, btn) {
+    userScrambleWords.push(word);
+    btn.disabled = true;
+    btn.classList.add('opacity-40');
+    renderScrambleDropArea();
+}
+
+function renderScrambleDropArea() {
+    const area = document.getElementById('sentenceDropArea');
+    if (userScrambleWords.length === 0) {
+        area.innerHTML = '<span class="text-xs text-slate-400 font-sans">Susun kata di sini...</span>';
+        return;
+    }
+    area.innerHTML = userScrambleWords.map(w => `<span class="bg-purple-600 text-white px-3 py-1 rounded-lg">${w}</span>`).join(' ');
+}
+
+function resetSentenceScramble() {
+    initSentenceScramble();
+}
+
+function checkSentenceScramble() {
+    const current = scrambleSentences[currentScrambleIndex];
+    const feedback = document.getElementById('scrambleFeedback');
+    if (userScrambleWords.join(' ') === current.target.join(' ')) {
+        feedback.innerHTML = '<span class="text-emerald-600">✨ Susunan Tepat Sekali! Keren! +15 Poin</span>';
+        addScore(15);
+        confetti({ particleCount: 50, spread: 70, origin: { y: 0.7 } });
+    } else {
+        feedback.innerHTML = '<span class="text-rose-500">Urutan belum tepat. Tekan Ulangi ya!</span>';
+    }
+}
+
+function checkFillBlank(choice) {
+    const feedback = document.getElementById('fillFeedback');
+    if (choice === 'ki') {
+        feedback.innerHTML = '<span class="text-emerald-600 font-bold">🎉 Benar! (كَ) digunakan untuk Laki-laki (Ahmad -> Bilal). +10 Poin</span>';
+        addScore(10);
+    } else {
+        feedback.innerHTML = '<span class="text-rose-500 font-bold">Kurang tepat. (كِ) untuk Perempuan, sedangkan Bilal adalah Laki-laki.</span>';
+    }
+}
+
+function switchMiniGame(gameType) {
+    document.getElementById('game-match-container').classList.add('hidden');
+    document.getElementById('game-scramble-container').classList.add('hidden');
+    document.getElementById('game-fill-container').classList.add('hidden');
+
+    if (gameType === 'match') {
+        document.getElementById('game-match-container').classList.remove('hidden');
+        initMatchGame();
+    } else if (gameType === 'scramble') {
+        document.getElementById('game-scramble-container').classList.remove('hidden');
+        initSentenceScramble();
+    } else if (gameType === 'fill') {
+        document.getElementById('game-fill-container').classList.remove('hidden');
+    }
+}
+
+function saveRefleksi() {
+    const hobi = document.getElementById('refleksiHobi').value;
+    const alasan = document.getElementById('refleksiAlasan').value;
+    const manfaat = document.getElementById('refleksiManfaat').value;
+
+    if (!alasan || !manfaat) {
+        alert("Silakan isi alasan dan manfaat hobimu terlebih dahulu ya!");
+        return;
+    }
+
+    const summary = `Hobiku adalah <strong>${hobi}</strong>. Aku menyukainya karena <em>"${alasan}"</em>. Manfaat yang aku dapatkan adalah <em>"${manfaat}"</em>. Aku bersyukur kepada Allah SWT atas nikmat kesehatan dan waktu ini.`;
+    document.getElementById('refleksiSummary').innerHTML = summary;
+    document.getElementById('refleksiResultCard').classList.remove('hidden');
+    addScore(20);
+    showNotification("💖 Bintang Refleksi KBC Berhasil Disimpan!");
+}
+
+const quizQuestions = [
+    {
+        q: "Apa Bahasa Arab dari hobi 'Membaca'?",
+        options: ['السِّبَاحَةُ', 'القِرَاءَةُ', 'الرَّسْمُ'],
+        correct: 1,
+        hint: 'Ingat kata Iqra!'
+    },
+    {
+        q: "Ungkapan bertanya hobi kepada anak perempuan adalah...",
+        options: ['مَا هِوَايَتُكَ؟', 'مَا هِوَايَتُكِ؟', 'مَنْ هُوَ؟'],
+        correct: 1,
+        hint: 'Gunakan akhiran -ki'
+    },
+    {
+        q: "Arti dari ungkapan 'هِوَايَتِي كُرَةُ القَدَمِ' adalah...",
+        options: ['Hobiku Berenang', 'Hobiku Sepak Bola', 'Hobiku Bersepeda'],
+        correct: 1,
+        hint: 'Qadam artinya kaki/bola'
+    },
+    {
+        q: "Mengapa kita harus membaca Bismillah sebelum melakukan hobi?",
+        options: ['Agar dipuji teman', 'Sebagai rasa syukur kepada Allah SWT', 'Supaya cepat selesai'],
+        correct: 1,
+        hint: 'Nilai Cinta Allah'
+    },
+    {
+        q: "Sikap yang baik terhadap hobi teman yang berbeda dari hobi kita adalah...",
+        options: ['Mengejek hobi teman', 'Menghargai dan memuji dengan Māsyā-Allāh', 'Acuh tak acuh'],
+        correct: 1,
+        hint: 'Nilai Cinta Sesama'
+    }
+];
+
+let currentQuizStep = 0;
+let quizScore = 0;
+
+function startQuiz() {
+    document.getElementById('quizContainer').classList.remove('hidden');
+    currentQuizStep = 0;
+    quizScore = 0;
+    renderQuizStep();
+}
+
+function renderQuizStep() {
+    if (currentQuizStep >= quizQuestions.length) {
+        document.getElementById('quizContent').innerHTML = `
+            <div class="text-center py-6 space-y-3">
+                <span class="text-5xl">🏆</span>
+                <h3 class="font-kids text-2xl text-amber-900 font-bold">Kuis Selesai! Mumtaz!</h3>
+                <p class="text-sm text-slate-600">Kamu menjawab benar ${quizScore} dari ${quizQuestions.length} soal.</p>
+                <button onclick="startQuiz()" class="bg-amber-500 text-white px-6 py-2 rounded-xl font-kids text-sm">
+                    Ulangi Kuis
+                </button>
+            </div>
+        `;
+        confetti({ particleCount: 100, spread: 80 });
+        addScore(quizScore * 10);
+        return;
+    }
+
+    const q = quizQuestions[currentQuizStep];
+    document.getElementById('quizProgressText').innerText = `Soal ${currentQuizStep + 1} / ${quizQuestions.length}`;
+    
+    document.getElementById('quizContent').innerHTML = `
+        <div class="space-y-4">
+            <h4 class="font-kids text-lg text-slate-800">${q.q}</h4>
+            <div class="space-y-2">
+                ${q.options.map((opt, i) => `
+                    <button onclick="submitQuizAnswer(${i})" class="w-full text-left p-3 rounded-2xl border border-slate-200 hover:bg-amber-50 font-medium text-sm transition flex justify-between items-center">
+                        <span>${opt}</span>
+                        <i class="fa-regular fa-circle text-slate-300"></i>
+                    </button>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function submitQuizAnswer(selected) {
+    const q = quizQuestions[currentQuizStep];
+    if (selected === q.correct) {
+        quizScore++;
+        playSuccessChime();
+    }
+    currentQuizStep++;
+    renderQuizStep();
+}
+
+function openMiniProject() {
+    document.getElementById('miniProjectContainer').classList.remove('hidden');
+    updateCardPreview();
+}
+
+function updateCardPreview() {
+    const name = document.getElementById('cardName').value || 'Ahmad / Fatimah';
+    const cls = document.getElementById('cardClass').value || 'Kelas II MI';
+    const hobby = document.getElementById('cardHobby').value;
+    const prayer = document.getElementById('cardPrayer').value || 'Alhamdulillah atas nikmat Allah SWT';
+
+    const vocabItem = vocabularies.find(v => v.arabic === hobby) || vocabularies[0];
+
+    document.getElementById('previewName').innerText = name;
+    document.getElementById('previewClass').innerText = cls;
+    document.getElementById('previewArabic').innerText = hobby;
+    document.getElementById('previewPrayer').innerText = `"${prayer}"`;
+    document.getElementById('cardEmojiIcon').innerText = vocabItem.emoji;
+}
+
+function printCard() {
+    window.print();
+}
+
+function openDeepLearningModal() {
+    document.getElementById('deepLearningModal').classList.remove('hidden');
+}
+
+function closeDeepLearningModal() {
+    document.getElementById('deepLearningModal').classList.add('hidden');
+}
+
+function toggleAudioBg() {
+    isAudioBgPlaying = !isAudioBgPlaying;
+    document.getElementById('bgAudioStatus').innerText = `Musik: ${isAudioBgPlaying ? 'ON' : 'OFF'}`;
+}
+
+window.onload = function () {
+    renderVocabGrid();
+    initMatchGame();
+};
+</script>
+
+</body>
+</html>
